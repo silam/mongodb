@@ -1,6 +1,6 @@
 const express = require('express');
 const     http = require('http');
-     const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
 const hostname = 'localhost';
@@ -8,6 +8,9 @@ const port = 3000;
 
 const app = express();
 
+const dishRouter = require('./routes/dishRouter');
+const promoRouter = require('./routes/promoRouter');
+const leaderRouter = require('./routes/leaderRouter');
 
 app.use(morgan('dev'));
 
@@ -25,24 +28,10 @@ app.use(express.static(__dirname + '/public'));
 
 
 
-const dishRouter = require('./routes/dishRouter');
 
 app.use('/dishes', dishRouter);
-app.use('/dishes/:dishid', dishRouter);
-
-
-
-
-const promoRouter = require('./routes/promoRouter');
-
 app.use('/promotions', promoRouter);
-app.use('/promotions/:promoId', promoRouter);
-
-
-const leaderRouter = require('./routes/leaderRouter');
-
 app.use('/leaders', leaderRouter);
-app.use('/leaders/:leaderId', leaderRouter);
 
 const server = http.createServer(app);
 
